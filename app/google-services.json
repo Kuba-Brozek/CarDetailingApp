@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "946101636846",
+    "project_id": "cardetailing-68e02",
+    "storage_bucket": "cardetailing-68e02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946101636846:android:e96e6f8613c75f660fedff",
+        "android_client_info": {
+          "package_name": "kamil.degree.cardetailingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946101636846-6qrtt0v15609qk5pnavkmtmbq5tkdes8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_3UvvNlU57DqOa9BUzprkYpRKakpxdqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "946101636846-6qrtt0v15609qk5pnavkmtmbq5tkdes8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
