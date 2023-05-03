@@ -1,9 +1,9 @@
 package kamil.degree.cardetailingapp.model
 
 data class User(
-    var id: String,
-    var email: String,
-    var username: String,
-    var birthDate: String, // format dd.MM.yyyy
-    var hasBusiness: Boolean
+    var id: String? = null,
+    var email: String? = null,
+    var username: String? = null,
+    var birthDate: String? = null, // format dd.MM.yyyy
+    var hasBusiness: Boolean? = null
 )

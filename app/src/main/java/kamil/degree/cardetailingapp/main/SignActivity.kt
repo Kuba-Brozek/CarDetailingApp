@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kamil.degree.cardetailingapp.databinding.ActivitySignBinding
 import kamil.degree.cardetailingapp.detailing.DrawerActivity
 import kamil.degree.cardetailingapp.extentions.Extentions.longToast
 import kamil.degree.cardetailingapp.extentions.Extentions.shortToast
 import kamil.degree.cardetailingapp.extentions.Extentions.useText
-import kamil.degree.cardetailingapp.utils.FirebaseUtils
 
 class SignActivity : AppCompatActivity() {
 
@@ -19,7 +22,11 @@ class SignActivity : AppCompatActivity() {
     lateinit var createAccountInputsArray: Array<EditText>
     private val viewModel: SignViewModel by viewModels()
     private lateinit var binding: ActivitySignBinding
+    val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    val currentUser: FirebaseUser? = firebaseAuth.currentUser
 
+    //firestore
+    val cloud = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +51,7 @@ class SignActivity : AppCompatActivity() {
     private fun createAccount(passwordText: String, confirmPasswordText: String, emailText: String) {
         if (viewModel.passwordIsValid(passwordText, confirmPasswordText)) {
 
-            FirebaseUtils.firebaseAuth.createUserWithEmailAndPassword(emailText, passwordText)
+            firebaseAuth.createUserWithEmailAndPassword(emailText, passwordText)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         shortToast("Account created successfully!")

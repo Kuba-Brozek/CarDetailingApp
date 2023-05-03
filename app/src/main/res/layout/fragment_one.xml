@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30sp"
+    android:padding="20sp"
     tools:context=".detailing.one.OneFragment">
 
     <FrameLayout
@@ -19,6 +19,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/baseline_add_24"
+        android:layout_marginEnd="10sp"
+        android:layout_marginBottom="10sp"
         android:tint="@color/white"/>
 
 

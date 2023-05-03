@@ -10,6 +10,7 @@ import kamil.degree.cardetailingapp.databinding.ActivityDrawerBinding
 import kamil.degree.cardetailingapp.detailing.one.OneFragment
 import kamil.degree.cardetailingapp.detailing.settings.SettingsFragment
 import kamil.degree.cardetailingapp.detailing.two.TwoFragment
+import kamil.degree.cardetailingapp.repo.FirebaseRepository
 
 class DrawerActivity : AppCompatActivity() {
 
@@ -24,6 +25,8 @@ class DrawerActivity : AppCompatActivity() {
         binding = ActivityDrawerBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        loadFragment(oneFragment)
 
         binding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {

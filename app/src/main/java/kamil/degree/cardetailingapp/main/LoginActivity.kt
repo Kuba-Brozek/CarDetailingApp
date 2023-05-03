@@ -6,11 +6,14 @@ import android.util.Log
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kamil.degree.cardetailingapp.databinding.ActivityLoginBinding
 import kamil.degree.cardetailingapp.detailing.DrawerActivity
 import kamil.degree.cardetailingapp.extentions.Extentions.shortToast
 import kamil.degree.cardetailingapp.extentions.Extentions.useText
-import kamil.degree.cardetailingapp.utils.FirebaseUtils
 
 class LoginActivity : AppCompatActivity() {
 
@@ -19,7 +22,11 @@ class LoginActivity : AppCompatActivity() {
     lateinit var createAccountInputsArray: Array<EditText>
     private val viewModel: SignViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
+    val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    val currentUser: FirebaseUser? = firebaseAuth.currentUser
 
+    //firestore
+    val cloud = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
         Log.d("asd", emailText)
         Log.d("asd", passwordText)
         if (emailText.isNotEmpty() && passwordText.isNotEmpty()) {
-            FirebaseUtils.firebaseAuth.signInWithEmailAndPassword(emailText, passwordText)
+            firebaseAuth.signInWithEmailAndPassword(emailText, passwordText)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful){
                         shortToast("You successfully signed in!")

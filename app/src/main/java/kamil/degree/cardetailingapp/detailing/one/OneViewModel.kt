@@ -13,5 +13,8 @@ class OneViewModel : ViewModel() {
         return firebaseRepo.addBusiness(business)
     }
 
+    fun changeBusinessFlag(){
+        return firebaseRepo.changeUserBusinessFlag()
+    }
 
 }
