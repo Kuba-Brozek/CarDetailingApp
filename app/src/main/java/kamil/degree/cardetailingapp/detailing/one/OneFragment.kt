@@ -13,7 +13,7 @@ class OneFragment : Fragment() {
 
     private var _binding: FragmentOneBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: TwoViewModel
+    private lateinit var viewModel: OneViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,7 +21,13 @@ class OneFragment : Fragment() {
     ): View {
         _binding = FragmentOneBinding.inflate(inflater, container, false)
         val view = binding.root
-        viewModel = ViewModelProvider(this)[TwoViewModel::class.java]
+        viewModel = ViewModelProvider(this)[OneViewModel::class.java]
+
+
+
+        binding.addBusinessFAB.setOnClickListener {
+
+        }
 
 
         return view

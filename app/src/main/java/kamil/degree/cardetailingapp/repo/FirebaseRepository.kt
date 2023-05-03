@@ -1,6 +1,7 @@
 package kamil.degree.cardetailingapp.repo
 
 import android.util.Log
+import kamil.degree.cardetailingapp.model.Business
 import kamil.degree.cardetailingapp.model.User
 import kamil.degree.cardetailingapp.utils.Const
 import kamil.degree.cardetailingapp.utils.FirebaseUtils.cloud
@@ -57,6 +58,27 @@ class FirebaseRepository {
             }
     }
 
+
+    fun addBusiness(business: Business) {
+        val businessHashMap = hashMapOf(
+            "name" to business.name,
+            "services" to business.services,
+            "description" to business.description
+        )
+        getUserData {
+            val user = it
+            user.hasBusiness = true
+            updateUserData(user)
+            cloud.collection(currentUser!!.uid).document(Const.BUSINESS_INFO)
+                .set(businessHashMap)
+                .addOnSuccessListener {
+                    Log.d(Const.BUSINESS_TAG, "Business added succesfully.")
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(Const.BUSINESS_TAG, "Error adding new business", exception)
+                }
+        }
+    }
 
 
 }
