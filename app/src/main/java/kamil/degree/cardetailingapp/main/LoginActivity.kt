@@ -1,19 +1,16 @@
 package kamil.degree.cardetailingapp.main
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import kamil.degree.cardetailingapp.R
 import kamil.degree.cardetailingapp.databinding.ActivityLoginBinding
 import kamil.degree.cardetailingapp.detailing.DrawerActivity
 import kamil.degree.cardetailingapp.extentions.Extentions.shortToast
 import kamil.degree.cardetailingapp.extentions.Extentions.useText
 import kamil.degree.cardetailingapp.utils.FirebaseUtils
-import kamil.degree.cardetailingapp.utils.Start
 
 class LoginActivity : AppCompatActivity() {
 

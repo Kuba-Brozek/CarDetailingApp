@@ -1,19 +1,16 @@
 package kamil.degree.cardetailingapp.main
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import kamil.degree.cardetailingapp.R
 import kamil.degree.cardetailingapp.databinding.ActivitySignBinding
 import kamil.degree.cardetailingapp.detailing.DrawerActivity
 import kamil.degree.cardetailingapp.extentions.Extentions.longToast
 import kamil.degree.cardetailingapp.extentions.Extentions.shortToast
 import kamil.degree.cardetailingapp.extentions.Extentions.useText
 import kamil.degree.cardetailingapp.utils.FirebaseUtils
-import kamil.degree.cardetailingapp.utils.Start
 
 class SignActivity : AppCompatActivity() {
 
@@ -51,16 +48,19 @@ class SignActivity : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         shortToast("Account created successfully!")
+                        viewModel.postUserData(emailText)
                         startActivity(Intent(this, DrawerActivity::class.java))
                         finish()
                     } else {
-                        longToast("Failed to Authenticate.")
+                        shortToast("Failed to Authenticate.")
                     }
                 }
         } else {
             longToast("Password doesn't meet our requirements.")
         }
     }
+
+
 
 
 

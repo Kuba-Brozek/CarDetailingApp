@@ -1,15 +1,61 @@
 package kamil.degree.cardetailingapp.repo
 
-import android.app.Activity
-import kamil.degree.cardetailingapp.detailing.DrawerActivity
-import kamil.degree.cardetailingapp.extentions.Extentions.longToast
-import kamil.degree.cardetailingapp.extentions.Extentions.shortToast
-import kamil.degree.cardetailingapp.utils.FirebaseUtils
-import kamil.degree.cardetailingapp.utils.*
+import android.util.Log
+import kamil.degree.cardetailingapp.model.User
+import kamil.degree.cardetailingapp.utils.Const
+import kamil.degree.cardetailingapp.utils.FirebaseUtils.cloud
+import kamil.degree.cardetailingapp.utils.FirebaseUtils.currentUser
 
 class FirebaseRepository {
 
 
+    fun postUserData(email: String) {
+
+        val userHashMap  = hashMapOf(
+            "id" to currentUser!!.uid,
+            "email" to email,
+            "username" to email.split("@").first(),
+            "birthDate" to "01.01.1980",
+            "hasBusiness" to false
+        )
+
+        cloud.collection(currentUser.uid).document(Const.USER_DETAILS).set(userHashMap)
+            .addOnSuccessListener {
+                Log.d(Const.USER_TAG, "User data added.")
+            }
+            .addOnFailureListener { exception ->
+                Log.w(Const.USER_TAG, "Error adding user data", exception)
+            }
+    }
+
+    fun getUserData(callback: (User) -> Unit) {
+        cloud.collection(currentUser!!.uid).document(Const.USER_DETAILS).get()
+            .addOnSuccessListener { result ->
+                val user = result.toObject(User::class.java)!!
+                callback(user)
+            }
+            .addOnFailureListener { exception ->
+                Log.w(Const.USER_TAG, "Error getting documents.", exception)
+            }
+    }
+
+    fun updateUserData (user: User) {
+        val userHashMap  = hashMapOf(
+            "id" to user.id,
+            "email" to user.email,
+            "username" to user.username,
+            "birthDate" to user.birthDate,
+            "hasBusiness" to user.hasBusiness
+        )
+        cloud.collection(currentUser.toString()).document(Const.USER_DETAILS).set(userHashMap)
+            .addOnSuccessListener {
+                Log.d(Const.USER_TAG, "User data modified.")
+                currentUser!!.updateEmail(user.email)
+            }
+            .addOnFailureListener { exception ->
+                Log.w(Const.USER_TAG, "Error modifying user data", exception)
+            }
+    }
 
 
 
