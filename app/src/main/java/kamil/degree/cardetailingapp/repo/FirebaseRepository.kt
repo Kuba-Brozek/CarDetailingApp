@@ -2,7 +2,6 @@ package kamil.degree.cardetailingapp.repo
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -41,6 +40,17 @@ class FirebaseRepository {
                 if(task.isSuccessful){
                     val user = task.result!!.toObject<User>()!!
                     callback(user)
+                }
+            }
+    }
+
+    fun getBusinessInfo(callback: (Business) -> Unit) {
+        cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.BUSINESS_INFO).get()
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    val business = task.result!!.toObject<Business>()!!
+                    Log.d(Const.BUSINESS_TAG, business.toString())
+                    callback(business)
                 }
             }
     }
@@ -96,6 +106,30 @@ class FirebaseRepository {
                 .addOnFailureListener { exception ->
                     Log.w(Const.BUSINESS_TAG, "Error adding new business", exception)
                 }
+        }
+    }
+
+    fun modifyBusiness(business: Business) {
+        getBusinessInfo {
+            val businessInfo = it
+            val businessHashMap = hashMapOf(
+                "name" to business.name,
+                "services" to businessInfo.services,
+                "description" to business.description
+            )
+            getUserData {userInfo ->
+                val user = userInfo
+                user.hasBusiness = true
+                updateUserData(userInfo)
+                cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.BUSINESS_INFO)
+                    .set(businessHashMap)
+                    .addOnSuccessListener {
+                        Log.d(Const.BUSINESS_TAG, "Business added succesfully.")
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w(Const.BUSINESS_TAG, "Error adding new business", exception)
+                    }
+            }
         }
     }
 

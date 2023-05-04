@@ -33,7 +33,7 @@ class OneFragment : Fragment() {
 
         loadFragment(businessIntroductionFragment)
 
-        firebaseRepository.getUserData {
+        viewModel.getUserData {
             user = it
             if (user.hasBusiness == true) {
                 loadFragment(addBusinessFragment)

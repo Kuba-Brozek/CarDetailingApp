@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="?attr/fullscreenBackgroundColor"
     android:backgroundTint="@color/white"
+    android:layout_marginStart="30sp"
+    android:layout_marginEnd="30sp"
     android:theme="@style/ThemeOverlay.CarDetailingApp.FullscreenContainer"
     tools:context=".detailing.one.childs.AddBusinessFragment">
 
@@ -14,36 +16,42 @@
         android:id="@+id/add_business_name_ET"
         android:layout_width="wrap_content"
         android:layout_height="60sp"
+        android:layout_marginTop="50sp"
         android:hint="business name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.274" />
-
-    <EditText
-        android:id="@+id/add_business_service_ET"
-        android:layout_width="wrap_content"
-        android:layout_height="60sp"
-        android:hint="service"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.384" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/add_business_description_ET"
-        android:layout_width="wrap_content"
-        android:layout_height="60sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120sp"
         android:hint="description"
+        android:lines="8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.574" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="350sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="65sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:itemCount="5"
+        tools:listitem="@layout/service_overview_list_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_business_confirm_FAB"
