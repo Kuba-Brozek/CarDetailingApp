@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     android:background="?attr/fullscreenBackgroundColor"
     android:backgroundTint="@color/white"
-    android:layout_marginStart="30sp"
-    android:layout_marginEnd="30sp"
     android:theme="@style/ThemeOverlay.CarDetailingApp.FullscreenContainer"
     tools:context=".detailing.one.childs.AddBusinessFragment">
 
@@ -31,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="120sp"
         android:hint="description"
-        android:lines="8"
+        android:lines="6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -59,8 +57,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/baseline_add_24"
+        android:src="@drawable/baseline_done_24"
         android:tint="@color/white"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,7 +42,7 @@ class AddBusinessFragment : Fragment() {
                 val business = Business(binding.addBusinessNameET.useText(),
                     it.services,
                     binding.addBusinessDescriptionET.useText())
-                viewModel.addBusiness(business)
+                viewModel.modifyBusiness(business)
             }
         }
         updateAdapter()
@@ -59,6 +59,8 @@ class AddBusinessFragment : Fragment() {
 
     private fun updateAdapter() {
         viewModel.getBusinessData {
+            binding.addBusinessNameET.setText(it.name)
+            binding.addBusinessDescriptionET.setText(it.description)
             Log.d("TAAAAAAAAAAAG", it.services.toString())
             binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
             val adapter = ServicesOverviewAdapter(it.services)

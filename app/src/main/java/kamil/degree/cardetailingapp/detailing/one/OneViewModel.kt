@@ -10,12 +10,13 @@ class OneViewModel : ViewModel() {
 
     private val firebaseRepo = FirebaseRepository()
 
-    fun addBusiness(business: Business) {
-        return firebaseRepo.addBusiness(business)
+
+    fun modifyBusiness(business: Business) {
+        return firebaseRepo.modifyBusiness(business)
     }
 
-    fun changeBusinessFlag(){
-        return firebaseRepo.changeUserBusinessFlag()
+    fun changeBusinessFlag(callback: (Business) -> Unit){
+        return firebaseRepo.changeUserBusinessFlag(callback)
     }
 
     fun getUserData(callback: (User) -> Unit) {

@@ -6,6 +6,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kamil.degree.cardetailingapp.model.Business
+import kamil.degree.cardetailingapp.model.Service
 import kamil.degree.cardetailingapp.model.User
 import kamil.degree.cardetailingapp.utils.Const
 
@@ -45,7 +46,7 @@ class FirebaseRepository {
     }
 
     fun getBusinessInfo(callback: (Business) -> Unit) {
-        cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.BUSINESS_INFO).get()
+        cloud.collection(Const.BUSINESS_INFO).document(firebaseAuth.currentUser!!.uid).get()
             .addOnCompleteListener { task ->
                 if(task.isSuccessful){
                     val business = task.result!!.toObject<Business>()!!
@@ -73,13 +74,14 @@ class FirebaseRepository {
             }
     }
 
-    fun changeUserBusinessFlag () {
+    fun changeUserBusinessFlag (callback: (Business) -> Unit) {
         getUserData {
         val user = it
             user.hasBusiness = true
             cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.USER_DETAILS).set(user)
                 .addOnSuccessListener {
                     Log.d(Const.USER_TAG, "User data modified.")
+                    addBusiness(callback)
                 }
                 .addOnFailureListener { exception ->
                     Log.w(Const.USER_TAG, "Error modifying user data", exception)
@@ -88,7 +90,10 @@ class FirebaseRepository {
     }
 
 
-    fun addBusiness(business: Business) {
+    fun addBusiness(callback: (Business) -> Unit) {
+        val business = Business()
+        val service = Service("myju myju", 199)
+        business.services = listOf(service, service, service, service, service, service, service, service, service, service, service, service, service)
         val businessHashMap = hashMapOf(
             "name" to business.name,
             "services" to business.services,
@@ -98,10 +103,11 @@ class FirebaseRepository {
             val user = it
             user.hasBusiness = true
             updateUserData(user)
-            cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.BUSINESS_INFO)
+            cloud.collection(Const.BUSINESS_INFO).document(firebaseAuth.currentUser!!.uid)
                 .set(businessHashMap)
                 .addOnSuccessListener {
-                    Log.d(Const.BUSINESS_TAG, "Business added succesfully.")
+                    callback(business)
+                    Log.d(Const.BUSINESS_TAG, "Business added successfully.")
                 }
                 .addOnFailureListener { exception ->
                     Log.w(Const.BUSINESS_TAG, "Error adding new business", exception)
@@ -120,11 +126,11 @@ class FirebaseRepository {
             getUserData {userInfo ->
                 val user = userInfo
                 user.hasBusiness = true
-                updateUserData(userInfo)
-                cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.BUSINESS_INFO)
+                updateUserData(user)
+                cloud.collection(Const.BUSINESS_INFO).document(firebaseAuth.currentUser!!.uid)
                     .set(businessHashMap)
                     .addOnSuccessListener {
-                        Log.d(Const.BUSINESS_TAG, "Business added succesfully.")
+                        Log.d(Const.BUSINESS_TAG, "Business added successfully.")
                     }
                     .addOnFailureListener { exception ->
                         Log.w(Const.BUSINESS_TAG, "Error adding new business", exception)
@@ -132,6 +138,10 @@ class FirebaseRepository {
             }
         }
     }
+
+//    fun getAllBusinesses(){
+//        cloud.collection().get()
+//    }
 
 
 
