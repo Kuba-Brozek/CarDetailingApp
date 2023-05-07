@@ -128,8 +128,13 @@ class BusinessImagesFragment : Fragment() {
 
     private fun uploadImageToStorage(filename: String) = CoroutineScope(Dispatchers.IO).launch {
         if(filename.isEmpty()) {
-            shortToast("Please provide picture name.")
+            withContext(Dispatchers.Main){
+                shortToast("Please provide picture name.")
+            }
         } else {
+            withContext(Dispatchers.Main){
+                shortToast("Please wait.")
+            }
             val images = imageRef
                 .child("${firebaseAuth.currentUser!!.uid}/").listAll().await().items
             if (images.map { it.name }.contains(filename) && images.size != 9) {
