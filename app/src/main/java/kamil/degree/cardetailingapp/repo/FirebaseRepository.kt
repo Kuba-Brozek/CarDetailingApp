@@ -119,7 +119,8 @@ class FirebaseRepository {
             val businessHashMap = hashMapOf(
                 "name" to business.name,
                 "services" to business.services,
-                "description" to business.description
+                "description" to business.description,
+                "address" to business.address
             )
             getUserData {userInfo ->
                 val user = userInfo

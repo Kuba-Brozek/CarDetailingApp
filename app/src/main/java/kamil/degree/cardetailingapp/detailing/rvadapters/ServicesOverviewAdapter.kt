@@ -13,13 +13,13 @@ import kamil.degree.cardetailingapp.R
 import kamil.degree.cardetailingapp.model.Service
 
 
-class ServicesOverviewAdapter (var serviceList: MutableList<Service>) : RecyclerView.Adapter<ServicesOverviewAdapter.ServicesOverviewViewHolder>() {
+class ServicesOverviewAdapter (var serviceList: MutableList<Service>)
+    : RecyclerView.Adapter<ServicesOverviewAdapter.ServicesOverviewViewHolder>() {
 
     private lateinit var mListener: OnItemClickListener
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
-        fun onSettingsClick(position: Int)
         fun onDeleteClick(position: Int)
     }
 
@@ -50,21 +50,23 @@ class ServicesOverviewAdapter (var serviceList: MutableList<Service>) : Recycler
         return serviceList.size
     }
 
-    inner class ServicesOverviewViewHolder(view: View, listener: OnItemClickListener) : RecyclerView.ViewHolder(view) {
+    inner class ServicesOverviewViewHolder(view: View, listener: OnItemClickListener)
+        : RecyclerView.ViewHolder(view) {
         val serviceName: EditText = itemView.findViewById(R.id.serviceName)
         val servicePrice: EditText = itemView.findViewById(R.id.servicePrice)
         private val deleteServiceBtn: ImageButton = itemView.findViewById(R.id.delete_service_BTN)
-        private val settingsServiceBtn: ImageButton =
-            itemView.findViewById(R.id.settings_service_BTN)
         val serviceNameTextChangeListener = ServiceNameTextChangeListener()
         val servicePriceTextChangeListener = ServicePriceTextChangeListener()
 
         init {
             serviceName.addTextChangedListener(serviceNameTextChangeListener)
             servicePrice.addTextChangedListener(servicePriceTextChangeListener)
-            itemView.setOnClickListener { listener.onItemClick(absoluteAdapterPosition) }
-            settingsServiceBtn.setOnClickListener { listener.onSettingsClick(absoluteAdapterPosition) }
-            deleteServiceBtn.setOnClickListener { listener.onDeleteClick(absoluteAdapterPosition) }
+            itemView.setOnClickListener {
+                listener.onItemClick(absoluteAdapterPosition)
+            }
+            deleteServiceBtn.setOnClickListener {
+                listener.onDeleteClick(absoluteAdapterPosition)
+            }
         }
     }
 

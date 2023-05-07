@@ -44,6 +44,7 @@ class AddBusinessFragment : Fragment() {
             business.name = binding.addBusinessNameET.useText()
             business.description = binding.addBusinessDescriptionET.useText()
             business.services = adapter.serviceList
+            business.address = binding.addBusinessAddressET.useText()
             viewModel.modifyBusiness(business)
         }
 
@@ -52,6 +53,10 @@ class AddBusinessFragment : Fragment() {
             business.services = adapter.serviceList
             adapter.notifyItemInserted(adapter.itemCount-1)
             viewModel.modifyBusiness(business)
+        }
+
+        binding.manageImagesFAB.setOnClickListener {
+            (activity as DrawerActivity).loadFragment(BusinessImagesFragment())
         }
 
         return view
@@ -67,6 +72,7 @@ class AddBusinessFragment : Fragment() {
     private fun initAdapter() {
         viewModel.getBusinessData {
             binding.addBusinessNameET.setText(it.name)
+            binding.addBusinessAddressET.setText(it.address)
             binding.addBusinessDescriptionET.setText(it.description)
             Log.d("TAAAAAAAAAAAG", it.services.toString())
             binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
@@ -74,10 +80,6 @@ class AddBusinessFragment : Fragment() {
             binding.recyclerview.adapter = adapter
             adapter.setOnItemClickListener(object: ServicesOverviewAdapter.OnItemClickListener{
                 override fun onItemClick(position: Int) {
-                    (activity as DrawerActivity).loadFragment(ServiceDescription(adapter.serviceList[position], position))
-                }
-
-                override fun onSettingsClick(position: Int) {
                     (activity as DrawerActivity).loadFragment(ServiceDescription(adapter.serviceList[position], position))
                 }
 
