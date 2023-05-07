@@ -1,6 +1,7 @@
 package kamil.degree.cardetailingapp.model
 
 data class Service(
-    val name: String? = null,
-    val price: Int? = null
+    var name: String? = null,
+    var price: Int? = null,
+    var description: String? = null
 )

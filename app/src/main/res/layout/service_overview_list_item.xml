@@ -5,46 +5,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="8sp"
+    app:cardCornerRadius="6sp"
+    android:layout_margin="3sp"
     app:cardElevation="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/serviceName"
-            android:layout_width="200sp"
-            android:layout_height="40dp"
+            android:layout_width="150sp"
+            android:layout_height="50sp"
             android:layout_marginStart="5sp"
-            android:hint="service name"
+            android:hint="@string/service_name"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/servicePrice"
-            android:layout_width="76dp"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50sp"
             android:gravity="end"
-            android:layout_marginEnd="5sp"
-            android:hint="price"
+            android:hint="@string/price"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/serviceName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/delete_service_BTN"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:src="@drawable/baseline_delete_24"
+            android:backgroundTint="@color/red"
+            android:layout_marginEnd="5sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            tools:ignore="RtlSymmetry" />
+
+        <ImageButton
+            android:id="@+id/settings_service_BTN"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:backgroundTint="@color/button_primary"
+            android:src="@drawable/baseline_settings_24"
+            android:layout_marginEnd="65sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

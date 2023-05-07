@@ -10,9 +10,8 @@ import kamil.degree.cardetailingapp.R
 import kamil.degree.cardetailingapp.databinding.FragmentOneBinding
 import kamil.degree.cardetailingapp.detailing.one.childs.AddBusinessFragment
 import kamil.degree.cardetailingapp.detailing.one.childs.BusinessIntroductionFragment
-import kamil.degree.cardetailingapp.detailing.one.childs.SearchBusinessFragment
+import kamil.degree.cardetailingapp.detailing.two.TwoFragment
 import kamil.degree.cardetailingapp.model.User
-import kamil.degree.cardetailingapp.repo.FirebaseRepository
 
 class OneFragment : Fragment() {
 
@@ -22,7 +21,7 @@ class OneFragment : Fragment() {
     private lateinit var viewModel: OneViewModel
     private val addBusinessFragment = AddBusinessFragment()
     private val businessIntroductionFragment = BusinessIntroductionFragment()
-    private val searchBusinessFragment = SearchBusinessFragment()
+    private val twoFragment = TwoFragment()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,7 +52,7 @@ class OneFragment : Fragment() {
         }
 
         binding.searchBusinessFAB.setOnClickListener {
-            loadFragment(searchBusinessFragment)
+            loadFragment(twoFragment)
         }
 
 
@@ -61,7 +60,7 @@ class OneFragment : Fragment() {
     }
 
 
-    private fun loadFragment(fragment: Fragment){
+    fun loadFragment(fragment: Fragment){
         val transaction = childFragmentManager.beginTransaction()
         transaction.replace(R.id.business_container,fragment)
         transaction.commit()

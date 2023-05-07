@@ -4,60 +4,99 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:windowSoftInputMode="adjustPan"
+    android:isScrollContainer="false"
+    android:padding="5sp"
     android:background="?attr/fullscreenBackgroundColor"
     android:backgroundTint="@color/white"
     android:theme="@style/ThemeOverlay.CarDetailingApp.FullscreenContainer"
     tools:context=".detailing.one.childs.AddBusinessFragment">
 
 
-    <EditText
-        android:id="@+id/add_business_name_ET"
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="60sp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50sp"
-        android:hint="business name"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="6sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/add_business_description_ET"
+        <EditText
+            android:id="@+id/add_business_name_ET"
+            android:layout_width="wrap_content"
+            android:layout_height="60sp"
+
+            android:hint="business name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.457"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="120sp"
-        android:hint="description"
-        android:lines="6"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/add_business_description_ET"
+            android:layout_width="match_parent"
+            android:layout_height="150sp"
+            android:hint="description"
+            app:cardCornerRadius="6sp"
+            android:lines="6"
+            android:paddingStart="5sp"
+            android:paddingEnd="5sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="350sp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="270sp"
+        android:layout_marginBottom="130sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="65sp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:layout_constraintVertical_bias="1.0"
-        tools:itemCount="5"
+        tools:itemCount="20"
         tools:listitem="@layout/service_overview_list_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_business_confirm_FAB"
+        android:id="@+id/save_business_changes_FAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/baseline_done_24"
+        android:tint="@color/white"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_service_FAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="75sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/baseline_add_24"
         android:tint="@color/white"/>
 
 

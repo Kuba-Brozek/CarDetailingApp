@@ -93,7 +93,7 @@ class FirebaseRepository {
     fun addBusiness(callback: (Business) -> Unit) {
         val business = Business()
         val service = Service("myju myju", 199)
-        business.services = listOf(service, service, service, service, service, service, service, service, service, service, service, service, service)
+        business.services = mutableListOf(service, service, service, service, service, service, service, service, service, service, service, service, service)
         val businessHashMap = hashMapOf(
             "name" to business.name,
             "services" to business.services,
@@ -116,11 +116,9 @@ class FirebaseRepository {
     }
 
     fun modifyBusiness(business: Business) {
-        getBusinessInfo {
-            val businessInfo = it
             val businessHashMap = hashMapOf(
                 "name" to business.name,
-                "services" to businessInfo.services,
+                "services" to business.services,
                 "description" to business.description
             )
             getUserData {userInfo ->
@@ -133,10 +131,21 @@ class FirebaseRepository {
                         Log.d(Const.BUSINESS_TAG, "Business added successfully.")
                     }
                     .addOnFailureListener { exception ->
+                        exception.printStackTrace()
                         Log.w(Const.BUSINESS_TAG, "Error adding new business", exception)
                     }
             }
-        }
+
+    }
+
+    fun saveService(business: Business) {
+        cloud.collection(Const.BUSINESS_INFO).document(firebaseAuth.currentUser!!.uid)
+            .set(business).addOnSuccessListener {
+                Log.d(Const.BUSINESS_TAG, "Business services updated correctly")
+            }.addOnFailureListener { exception ->
+                exception.printStackTrace()
+                Log.w(Const.BUSINESS_TAG, "Unexpected Error", exception)
+            }
     }
 
 //    fun getAllBusinesses(){
