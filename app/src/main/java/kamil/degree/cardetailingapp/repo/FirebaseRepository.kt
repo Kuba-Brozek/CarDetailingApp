@@ -1,24 +1,32 @@
 package kamil.degree.cardetailingapp.repo
 
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import kamil.degree.cardetailingapp.model.Business
 import kamil.degree.cardetailingapp.model.Service
 import kamil.degree.cardetailingapp.model.User
 import kamil.degree.cardetailingapp.utils.Const
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class FirebaseRepository {
-    //auth
+
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    //firestore
     private val cloud = Firebase.firestore
+    val imageRef = Firebase.storage.reference
 
     fun postUserData(email: String) {
 
-        val userHashMap  = hashMapOf(
+        val userHashMap = hashMapOf(
             "id" to firebaseAuth.currentUser!!.uid,
             "email" to email,
             "username" to email.split("@").first(),
@@ -26,7 +34,8 @@ class FirebaseRepository {
             "hasBusiness" to false
         )
 
-        cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.USER_DETAILS).set(userHashMap)
+        cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.USER_DETAILS)
+            .set(userHashMap)
             .addOnSuccessListener {
                 Log.d(Const.USER_TAG, "User data added.")
             }
@@ -38,7 +47,7 @@ class FirebaseRepository {
     fun getUserData(callback: (User) -> Unit) {
         cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.USER_DETAILS).get()
             .addOnCompleteListener { task ->
-                if(task.isSuccessful){
+                if (task.isSuccessful) {
                     val user = task.result!!.toObject<User>()!!
                     callback(user)
                 }
@@ -48,7 +57,7 @@ class FirebaseRepository {
     fun getBusinessInfo(callback: (Business) -> Unit) {
         cloud.collection(Const.BUSINESS_INFO).document(firebaseAuth.currentUser!!.uid).get()
             .addOnCompleteListener { task ->
-                if(task.isSuccessful){
+                if (task.isSuccessful) {
                     val business = task.result!!.toObject<Business>()!!
                     Log.d(Const.BUSINESS_TAG, business.toString())
                     callback(business)
@@ -56,15 +65,16 @@ class FirebaseRepository {
             }
     }
 
-    fun updateUserData (user: User) {
-        val userHashMap  = hashMapOf(
+    fun updateUserData(user: User) {
+        val userHashMap = hashMapOf(
             "id" to user.id,
             "email" to user.email,
             "username" to user.username,
             "birthDate" to user.birthDate,
             "hasBusiness" to user.hasBusiness
         )
-        cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.USER_DETAILS).set(userHashMap)
+        cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.USER_DETAILS)
+            .set(userHashMap)
             .addOnSuccessListener {
                 Log.d(Const.USER_TAG, "User data modified.")
                 firebaseAuth.currentUser!!.updateEmail(user.email!!)
@@ -74,9 +84,9 @@ class FirebaseRepository {
             }
     }
 
-    fun changeUserBusinessFlag (callback: (Business) -> Unit) {
+    fun changeUserBusinessFlag(callback: (Business) -> Unit) {
         getUserData {
-        val user = it
+            val user = it
             user.hasBusiness = true
             cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.USER_DETAILS).set(user)
                 .addOnSuccessListener {
@@ -93,7 +103,21 @@ class FirebaseRepository {
     fun addBusiness(callback: (Business) -> Unit) {
         val business = Business()
         val service = Service("myju myju", 199)
-        business.services = mutableListOf(service, service, service, service, service, service, service, service, service, service, service, service, service)
+        business.services = mutableListOf(
+            service,
+            service,
+            service,
+            service,
+            service,
+            service,
+            service,
+            service,
+            service,
+            service,
+            service,
+            service,
+            service
+        )
         val businessHashMap = hashMapOf(
             "name" to business.name,
             "services" to business.services,
@@ -116,26 +140,26 @@ class FirebaseRepository {
     }
 
     fun modifyBusiness(business: Business) {
-            val businessHashMap = hashMapOf(
-                "name" to business.name,
-                "services" to business.services,
-                "description" to business.description,
-                "address" to business.address
-            )
-            getUserData {userInfo ->
-                val user = userInfo
-                user.hasBusiness = true
-                updateUserData(user)
-                cloud.collection(Const.BUSINESS_INFO).document(firebaseAuth.currentUser!!.uid)
-                    .set(businessHashMap)
-                    .addOnSuccessListener {
-                        Log.d(Const.BUSINESS_TAG, "Business added successfully.")
-                    }
-                    .addOnFailureListener { exception ->
-                        exception.printStackTrace()
-                        Log.w(Const.BUSINESS_TAG, "Error adding new business", exception)
-                    }
-            }
+        val businessHashMap = hashMapOf(
+            "name" to business.name,
+            "services" to business.services,
+            "description" to business.description,
+            "address" to business.address
+        )
+        getUserData { userInfo ->
+            val user = userInfo
+            user.hasBusiness = true
+            updateUserData(user)
+            cloud.collection(Const.BUSINESS_INFO).document(firebaseAuth.currentUser!!.uid)
+                .set(businessHashMap)
+                .addOnSuccessListener {
+                    Log.d(Const.BUSINESS_TAG, "Business added successfully.")
+                }
+                .addOnFailureListener { exception ->
+                    exception.printStackTrace()
+                    Log.w(Const.BUSINESS_TAG, "Error adding new business", exception)
+                }
+        }
 
     }
 
@@ -149,11 +173,46 @@ class FirebaseRepository {
             }
     }
 
-//    fun getAllBusinesses(){
-//        cloud.collection().get()
-//    }
+    fun getAllBusinesses(returnedList: (List<Pair<QueryDocumentSnapshot, Business>>) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            cloud.collection(Const.BUSINESS_INFO).get()
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        val businessList = mutableListOf<Pair<QueryDocumentSnapshot, Business>>()
+                        CoroutineScope(Dispatchers.IO).launch {
+                            for (doc in it.result) {
+                                withContext(Dispatchers.IO) {
+                                    val business = doc.toObject<Business>()
+                                    withContext(Dispatchers.IO) {
+                                    }
+                                    val pair = Pair(doc, business)
+                                    Log.d("ad", pair.toString())
+                                    businessList.add(pair)
+                                }
+                            }
+                            Log.d("asddsa", businessList.toString())
+                            returnedList(businessList)
+
+                        }
+
+                    }
+                }
+        }
+    }
 
 
-
-
+    fun getImageUriOfAllBusinesses(callback: (List<Pair<Business, String>>) -> Unit) {
+        val callbackList = mutableListOf<Pair<Business, String>>()
+        getAllBusinesses {
+            CoroutineScope(Dispatchers.IO).launch {
+                it.forEach {
+                    val image = imageRef.child(it.first.id).listAll()
+                        .await().items.firstOrNull()
+                    val imageUri= image?.downloadUrl?.await()?.toString() ?: ""
+                    callbackList.add(Pair(it.second, imageUri))
+                }
+                callback(callbackList)
+            }
+        }
+    }
 }

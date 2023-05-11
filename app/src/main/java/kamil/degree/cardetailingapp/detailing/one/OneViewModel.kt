@@ -9,8 +9,8 @@ import kamil.degree.cardetailingapp.repo.FirebaseRepository
 
 class OneViewModel : ViewModel() {
 
-    private val firebaseRepo = FirebaseRepository()
 
+    private val firebaseRepo = FirebaseRepository()
 
     fun modifyBusiness(business: Business) {
         return firebaseRepo.modifyBusiness(business)

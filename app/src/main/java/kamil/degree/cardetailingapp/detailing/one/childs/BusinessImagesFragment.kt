@@ -79,8 +79,10 @@ class BusinessImagesFragment : Fragment() {
             val images = imageRef.child("${firebaseAuth.currentUser!!.uid}/").listAll().await()
 
             for(image in images.items) {
-                val url = image.downloadUrl.await()
-                imageUrls.add(url.toString())
+                CoroutineScope(Dispatchers.IO).launch {
+                    val url = image.downloadUrl.await()
+                    imageUrls.add(url.toString())
+                }
             }
             withContext(Dispatchers.Main) {
                 binding.rvImages.adapter = imageAdapter
@@ -138,7 +140,9 @@ class BusinessImagesFragment : Fragment() {
             val images = imageRef
                 .child("${firebaseAuth.currentUser!!.uid}/").listAll().await().items
             if (images.map { it.name }.contains(filename) && images.size != 9) {
-                shortToast("Name of image is taken")
+                withContext(Dispatchers.Main){
+                    shortToast("Name of image is taken")
+                }
             } else {
                 try {
                     curFile?.let {
