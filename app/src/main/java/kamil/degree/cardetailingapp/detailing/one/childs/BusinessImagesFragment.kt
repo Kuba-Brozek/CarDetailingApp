@@ -75,37 +75,42 @@ class BusinessImagesFragment : Fragment() {
 
 
     private fun listFiles() = CoroutineScope(Dispatchers.IO).launch {
+        withContext(Dispatchers.Main) {
+            binding.rvImages.adapter = imageAdapter
+            binding.rvImages.layoutManager = GridLayoutManager(requireContext(), 2)
+            imageAdapter.setOnItemClickListener(object: ImageAdapter.OnImageClickListener{
+                override fun onItemClick(position: Int) {
+                    Glide.with(requireContext()).load(imageUrls[position]).into(binding.ivImage)
+                }
+                override fun onItemLongClick(position: Int) {
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Confirm")
+                        .setMessage("Are you sure you want to delete this image?")
+                        .setPositiveButton("YES") { _, _ ->
+                            deleteImage(imageUrls[position])
+                            imageUrls.removeAt(position)
+                            imageAdapter.urls = imageUrls
+                            imageAdapter.notifyItemRemoved(position)
+                        }.setNegativeButton("NO") { dialog, _ ->
+                            dialog.dismiss()
+                        }.create().show()
+                }
+            })
+        }
         try {
             val images = imageRef.child("${firebaseAuth.currentUser!!.uid}/").listAll().await()
 
             for(image in images.items) {
                 CoroutineScope(Dispatchers.IO).launch {
                     val url = image.downloadUrl.await()
-                    imageUrls.add(url.toString())
+                    withContext(Dispatchers.Main) {
+                        imageUrls.add(url.toString())
+                        imageAdapter.urls = imageAdapter.urls.plus(url.toString())
+                        imageAdapter.notifyItemInserted(imageAdapter.urls.size-1)
+                    }
                 }
             }
-            withContext(Dispatchers.Main) {
-                binding.rvImages.adapter = imageAdapter
-                binding.rvImages.layoutManager = GridLayoutManager(requireContext(), 2)
-                imageAdapter.setOnItemClickListener(object: ImageAdapter.OnImageClickListener{
-                    override fun onItemClick(position: Int) {
-                        Glide.with(requireContext()).load(imageUrls[position]).into(binding.ivImage)
-                    }
-                    override fun onItemLongClick(position: Int) {
-                        AlertDialog.Builder(requireContext())
-                            .setTitle("Confirm")
-                            .setMessage("Are you sure you want to delete this image?")
-                            .setPositiveButton("YES") { _, _ ->
-                                deleteImage(imageUrls[position])
-                                imageUrls.removeAt(position)
-                                imageAdapter.urls = imageUrls
-                                imageAdapter.notifyItemRemoved(position)
-                            }.setNegativeButton("NO") { dialog, _ ->
-                                dialog.dismiss()
-                            }.create().show()
-                    }
-                })
-            }
+
         } catch(e: Exception) {
             withContext(Dispatchers.Main) {
                 Log.w("", e.message?: "")
