@@ -1,8 +1,7 @@
-package kamil.degree.cardetailingapp.detailing.one.childs
+package kamil.degree.cardetailingapp.detailing.managebusiness.details
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -18,12 +17,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import kamil.degree.cardetailingapp.R
-import kamil.degree.cardetailingapp.databinding.FragmentAddBusinessBinding
 import kamil.degree.cardetailingapp.databinding.FragmentBusinessImagesBinding
-import kamil.degree.cardetailingapp.databinding.FragmentServiceDescriptionBinding
-import kamil.degree.cardetailingapp.detailing.one.OneViewModel
-import kamil.degree.cardetailingapp.detailing.rvadapters.ImageAdapter
+import kamil.degree.cardetailingapp.detailing.managebusiness.BusinessViewModel
+import kamil.degree.cardetailingapp.detailing.adapters.ImageAdapter
 import kamil.degree.cardetailingapp.extentions.Extentions.longToast
 import kamil.degree.cardetailingapp.extentions.Extentions.shortToast
 import kamil.degree.cardetailingapp.extentions.Extentions.useText
@@ -37,7 +33,7 @@ private const val REQUEST_CODE_IMAGE_PICK = 0
 
 class BusinessImagesFragment : Fragment() {
 
-    private lateinit var viewModel: OneViewModel
+    private lateinit var viewModel: BusinessViewModel
     private var _binding: FragmentBusinessImagesBinding? = null
     private val binding get() = _binding!!
     var curFile: Uri? = null
@@ -53,7 +49,7 @@ class BusinessImagesFragment : Fragment() {
     ): View {
         _binding = FragmentBusinessImagesBinding.inflate(inflater, container, false)
         val view = binding.root
-        viewModel = ViewModelProvider(this)[OneViewModel::class.java]
+        viewModel = ViewModelProvider(this)[BusinessViewModel::class.java]
 
         listFiles()
         binding.ivImage.setOnClickListener {
@@ -105,8 +101,8 @@ class BusinessImagesFragment : Fragment() {
                     val url = image.downloadUrl.await()
                     withContext(Dispatchers.Main) {
                         imageUrls.add(url.toString())
-                        imageAdapter.urls = imageAdapter.urls.plus(url.toString())
-                        imageAdapter.notifyItemInserted(imageAdapter.urls.size-1)
+                        imageAdapter.urls = imageUrls
+                        imageAdapter.notifyItemInserted(imageAdapter.urls.lastIndex)
                     }
                 }
             }

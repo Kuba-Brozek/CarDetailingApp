@@ -4,20 +4,18 @@ import android.os.Bundle
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kamil.degree.cardetailingapp.R
 import kamil.degree.cardetailingapp.databinding.ActivityDrawerBinding
-import kamil.degree.cardetailingapp.detailing.one.OneFragment
+import kamil.degree.cardetailingapp.detailing.managebusiness.BusinessBucketFragment
 import kamil.degree.cardetailingapp.detailing.settings.SettingsFragment
-import kamil.degree.cardetailingapp.detailing.two.TwoFragment
-import kamil.degree.cardetailingapp.repo.FirebaseRepository
+import kamil.degree.cardetailingapp.detailing.searchbusiness.BusinessSearchFragment
 
 class DrawerActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityDrawerBinding
-    private val oneFragment = OneFragment()
-    private val twoFragment = TwoFragment()
+    private val businessBucketFragment = BusinessBucketFragment()
+    private val businessSearchFragment = BusinessSearchFragment()
     private val settingsFragment = SettingsFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,16 +24,16 @@ class DrawerActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        loadFragment(oneFragment)
+        loadFragment(businessBucketFragment)
 
         binding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
-                    loadFragment(oneFragment)
+                    loadFragment(businessBucketFragment)
                     true
                 }
                 R.id.message -> {
-                    loadFragment(twoFragment)
+                    loadFragment(businessSearchFragment)
                     true
                 }
                 R.id.settings -> {

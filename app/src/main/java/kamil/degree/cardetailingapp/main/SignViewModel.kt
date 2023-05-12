@@ -8,7 +8,7 @@ import kamil.degree.cardetailingapp.repo.FirebaseRepository
 
 class SignViewModel: ViewModel() {
 
-    private val firebaseRepo = FirebaseRepository()
+    private val firebaseRepo = FirebaseRepository
 
 
     fun passwordIsValid(passwordText: String, confirmPasswordText: String): Boolean {

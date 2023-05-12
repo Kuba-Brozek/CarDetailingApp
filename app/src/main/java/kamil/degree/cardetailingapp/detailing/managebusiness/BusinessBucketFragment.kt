@@ -1,4 +1,4 @@
-package kamil.degree.cardetailingapp.detailing.one
+package kamil.degree.cardetailingapp.detailing.managebusiness
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,37 +7,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kamil.degree.cardetailingapp.R
-import kamil.degree.cardetailingapp.databinding.FragmentOneBinding
-import kamil.degree.cardetailingapp.detailing.one.childs.AddBusinessFragment
-import kamil.degree.cardetailingapp.detailing.one.childs.BusinessIntroductionFragment
-import kamil.degree.cardetailingapp.detailing.two.TwoFragment
+import kamil.degree.cardetailingapp.databinding.FragmentBusinessBucketBinding
+import kamil.degree.cardetailingapp.detailing.managebusiness.details.AddBusinessFragment
+import kamil.degree.cardetailingapp.detailing.managebusiness.details.BusinessIntroductionFragment
+import kamil.degree.cardetailingapp.detailing.searchbusiness.BusinessSearchFragment
 import kamil.degree.cardetailingapp.model.User
 
-class OneFragment : Fragment() {
+class BusinessBucketFragment : Fragment() {
 
 
-    private var _binding: FragmentOneBinding? = null
+    private var _binding: FragmentBusinessBucketBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: OneViewModel
+    private lateinit var viewModel: BusinessViewModel
     private val addBusinessFragment = AddBusinessFragment()
     private val businessIntroductionFragment = BusinessIntroductionFragment()
-    private val twoFragment = TwoFragment()
+    private val twoFragment = BusinessSearchFragment()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentOneBinding.inflate(inflater, container, false)
+        _binding = FragmentBusinessBucketBinding.inflate(inflater, container, false)
         val view = binding.root
-        viewModel = ViewModelProvider(this)[OneViewModel::class.java]
+        viewModel = ViewModelProvider(this)[BusinessViewModel::class.java]
         var user = User("a", "a", "a", "false", false)
-
-        loadFragment(businessIntroductionFragment)
 
         viewModel.getUserData {
             user = it
             if (user.hasBusiness == true) {
                 loadFragment(addBusinessFragment)
                 binding.addBusinessFAB.visibility = View.GONE
+            } else {
+                loadFragment(businessIntroductionFragment)
             }
         }
 

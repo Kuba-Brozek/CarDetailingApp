@@ -1,16 +1,14 @@
-package kamil.degree.cardetailingapp.detailing.one
+package kamil.degree.cardetailingapp.detailing.managebusiness
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kamil.degree.cardetailingapp.model.Business
-import kamil.degree.cardetailingapp.model.Service
 import kamil.degree.cardetailingapp.model.User
 import kamil.degree.cardetailingapp.repo.FirebaseRepository
 
-class OneViewModel : ViewModel() {
+class BusinessViewModel : ViewModel() {
 
 
-    private val firebaseRepo = FirebaseRepository()
+    private val firebaseRepo = FirebaseRepository
 
     fun modifyBusiness(business: Business) {
         return firebaseRepo.modifyBusiness(business)

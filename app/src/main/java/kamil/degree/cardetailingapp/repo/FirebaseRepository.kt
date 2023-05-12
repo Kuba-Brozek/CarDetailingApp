@@ -1,5 +1,6 @@
 package kamil.degree.cardetailingapp.repo
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
@@ -18,9 +19,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-class FirebaseRepository {
+object FirebaseRepository {
 
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    @SuppressLint("StaticFieldLeak")
     private val cloud = Firebase.firestore
     val imageRef = Firebase.storage.reference
 

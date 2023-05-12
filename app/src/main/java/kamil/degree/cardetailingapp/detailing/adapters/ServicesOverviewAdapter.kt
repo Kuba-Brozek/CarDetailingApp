@@ -1,4 +1,4 @@
-package kamil.degree.cardetailingapp.detailing.rvadapters
+package kamil.degree.cardetailingapp.detailing.adapters
 
 import android.text.Editable
 import android.text.InputType

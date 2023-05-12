@@ -10,7 +10,7 @@
     android:background="?attr/fullscreenBackgroundColor"
     android:backgroundTint="@color/white"
     android:theme="@style/ThemeOverlay.CarDetailingApp.FullscreenContainer"
-    tools:context=".detailing.one.childs.AddBusinessFragment">
+    tools:context=".detailing.managebusiness.details.AddBusinessFragment">
 
 
     <androidx.cardview.widget.CardView

@@ -1,4 +1,4 @@
-package kamil.degree.cardetailingapp.detailing.one.childs
+package kamil.degree.cardetailingapp.detailing.managebusiness.details
 
 import android.os.Bundle
 import android.util.Log
@@ -10,12 +10,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import kamil.degree.cardetailingapp.R
 import kamil.degree.cardetailingapp.databinding.FragmentAddBusinessBinding
 import kamil.degree.cardetailingapp.detailing.DrawerActivity
-import kamil.degree.cardetailingapp.detailing.one.OneFragment
-import kamil.degree.cardetailingapp.detailing.one.OneViewModel
-import kamil.degree.cardetailingapp.detailing.rvadapters.ServicesOverviewAdapter
+import kamil.degree.cardetailingapp.detailing.managebusiness.BusinessViewModel
+import kamil.degree.cardetailingapp.detailing.adapters.ServicesOverviewAdapter
 import kamil.degree.cardetailingapp.extentions.Extentions.useText
 import kamil.degree.cardetailingapp.model.Business
 import kamil.degree.cardetailingapp.model.Service
@@ -23,7 +21,7 @@ import kamil.degree.cardetailingapp.model.Service
 
 class AddBusinessFragment : Fragment() {
 
-    private lateinit var viewModel: OneViewModel
+    private lateinit var viewModel: BusinessViewModel
     private var _binding: FragmentAddBusinessBinding? = null
     private val binding get() = _binding!!
     private var business = Business()
@@ -35,7 +33,7 @@ class AddBusinessFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this)[OneViewModel::class.java]
+        viewModel = ViewModelProvider(this)[BusinessViewModel::class.java]
         _binding = FragmentAddBusinessBinding.inflate(inflater, container, false)
         val view = binding.root
         initAdapter()

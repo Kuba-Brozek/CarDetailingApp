@@ -1,6 +1,5 @@
-package kamil.degree.cardetailingapp.detailing.two
+package kamil.degree.cardetailingapp.detailing.searchbusiness
 
-import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.Editable
@@ -10,20 +9,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import kamil.degree.cardetailingapp.databinding.FragmentTwoBinding
-import kamil.degree.cardetailingapp.detailing.rvadapters.BusinessSearchAdapter
+import kamil.degree.cardetailingapp.databinding.FragmentBusinessSearchBinding
+import kamil.degree.cardetailingapp.detailing.adapters.BusinessSearchAdapter
 import kamil.degree.cardetailingapp.extentions.Extentions.shortToast
 import kamil.degree.cardetailingapp.model.Business
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class TwoFragment : Fragment() {
+class BusinessSearchFragment : Fragment() {
 
 
-    private var _binding: FragmentTwoBinding? = null
+    private var _binding: FragmentBusinessSearchBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: TwoViewModel
+    private lateinit var viewModel: BusinessSearchViewModel
     private var businessList = listOf<Pair<Business, String>>()
     private lateinit var adapter: BusinessSearchAdapter
 
@@ -31,9 +30,9 @@ class TwoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTwoBinding.inflate(inflater, container, false)
+        _binding = FragmentBusinessSearchBinding.inflate(inflater, container, false)
         val view = binding.root
-        viewModel = ViewModelProvider(this)[TwoViewModel::class.java]
+        viewModel = ViewModelProvider(this)[BusinessSearchViewModel::class.java]
 
         viewModel.getBusinesses {
             CoroutineScope(Dispatchers.Main).launch {
