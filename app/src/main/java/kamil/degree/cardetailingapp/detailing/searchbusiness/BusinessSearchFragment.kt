@@ -10,13 +10,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kamil.degree.cardetailingapp.databinding.FragmentBusinessSearchBinding
 import kamil.degree.cardetailingapp.detailing.adapters.BusinessSearchAdapter
 import kamil.degree.cardetailingapp.extentions.Extentions.shortToast
 import kamil.degree.cardetailingapp.model.Business
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @SuppressLint("NotifyDataSetChanged")
@@ -39,35 +39,38 @@ class BusinessSearchFragment : Fragment() {
         val view = binding.root
         viewModel = ViewModelProvider(this)[BusinessSearchViewModel::class.java]
 
-        viewModel.getBusinesses {
-            CoroutineScope(Dispatchers.Main).launch {
+
+        binding.businessSearchContainer.layoutManager = LinearLayoutManager(requireContext())
+        adapter = BusinessSearchAdapter(businessList)
+        binding.businessSearchContainer.adapter = adapter
+        adapter.setOnItemClickListener(object : BusinessSearchAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                shortToast("asdasdasd ${businessList[position]}")
+            }
+        })
+
+        viewModel.getBusinesses2 {
+            lifecycleScope.launch {
                 businessList = it
-                println(it[0].toString())
-                binding.businessSearchContainer.layoutManager = LinearLayoutManager(requireContext())
-                adapter = BusinessSearchAdapter(businessList)
-                binding.businessSearchContainer.adapter = adapter
-                adapter.setOnItemClickListener(object : BusinessSearchAdapter.OnItemClickListener{
-                    override fun onItemClick(position: Int) {
-                        shortToast("asdasdasd ${businessList[position]}")
-                    }
-                })
+                adapter.businessList = it
+                adapter.notifyDataSetChanged()
             }
         }
 
         binding.searchWithFilter1CV.setOnClickListener {
-            filterButtonOnClick(0)
+            filterButtonOnClick(0, binding.one)
         }
 
         binding.searchWithFilter2CV.setOnClickListener {
-            filterButtonOnClick(1)
+            filterButtonOnClick(1, binding.two)
         }
 
         binding.searchWithFilter3CV.setOnClickListener {
-            filterButtonOnClick(2)
+            filterButtonOnClick(2, binding.three)
         }
 
         binding.searchWithFilter4CV.setOnClickListener {
-            filterButtonOnClick(3)
+            filterButtonOnClick(3, binding.four)
         }
 
 
@@ -90,7 +93,6 @@ class BusinessSearchFragment : Fragment() {
 
     private fun filterBusinessListAndUpdateAdapterAccordingly(predicate: String) {
 
-        Log.d("asdasdsdadsa", predicate)
         val filteredList = businessList.filter {
                 pair -> pair.first.services
             .map { it.name }.any { string -> string?.contains(predicate) ?: false }
@@ -106,12 +108,14 @@ class BusinessSearchFragment : Fragment() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun filterButtonOnClick(predicate: Int){
-        clickedFlagList = clickedFlagList.map { false }.toMutableList()
+    private fun filterButtonOnClick(predicate: Int, consLayout: ConstraintLayout){
         if(clickedFlagList[predicate]){
-            clickedFlagList[predicate] = false
+            consLayout.background.alpha = 255
+            clickedFlagList = clickedFlagList.map { false }.toMutableList()
             restoreUnfilteredAdapter()
         } else {
+            consLayout.background.alpha = 100
+            clickedFlagList = clickedFlagList.map { false }.toMutableList()
             clickedFlagList[predicate] = true
             filterBusinessListAndUpdateAdapterAccordingly(predicateList[predicate])
         }

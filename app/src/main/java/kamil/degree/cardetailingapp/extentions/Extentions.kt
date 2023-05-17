@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import kamil.degree.cardetailingapp.R
 
 object Extentions {
@@ -19,6 +20,12 @@ object Extentions {
     fun Fragment.longToast(message: String) = Toast.makeText(activity!!.baseContext, message, Toast.LENGTH_LONG).show()
     fun EditText.useText() = text.toString().trim()
     fun TextView.useText() = text.toString().trim()
+
+    fun <T> MutableLiveData<MutableList<T>>.addNewItem(item: T) {
+        val oldValue = this.value ?: mutableListOf()
+        oldValue.add(item)
+        this.value = oldValue
+    }
 
 
 

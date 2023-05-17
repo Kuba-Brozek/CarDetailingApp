@@ -68,6 +68,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/one"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="5sp"
@@ -115,6 +116,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/two"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="5sp"
@@ -153,7 +155,7 @@
         android:layout_width="190sp"
         android:layout_height="60sp"
         android:layout_marginStart="10sp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="150sp"
         android:layout_marginEnd="10sp"
         app:cardCornerRadius="10sp"
         app:cardElevation="10sp"
@@ -163,6 +165,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/three"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="5sp"
@@ -210,6 +213,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/four"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="5sp"

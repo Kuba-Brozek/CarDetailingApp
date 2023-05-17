@@ -1,7 +1,6 @@
 package kamil.degree.cardetailingapp.repo
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.QueryDocumentSnapshot
@@ -15,6 +14,11 @@ import kamil.degree.cardetailingapp.model.User
 import kamil.degree.cardetailingapp.utils.Const
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -188,11 +192,9 @@ object FirebaseRepository {
                                     withContext(Dispatchers.IO) {
                                     }
                                     val pair = Pair(doc, business)
-                                    Log.d("ad", pair.toString())
                                     businessList.add(pair)
                                 }
                             }
-                            Log.d("asddsa", businessList.toString())
                             returnedList(businessList)
 
                         }
@@ -201,14 +203,6 @@ object FirebaseRepository {
                 }
         }
     }
-
-    fun asd(queryName: String){
-        getAllBusinesses {asd ->
-            val x = asd.map { it.second }.map { it.services }.flatten()
-            x.filter { it.name!!.contains(queryName) }
-        }
-    }
-
 
     fun getImageUriOfAllBusinesses(callback: (List<Pair<Business, String>>) -> Unit) {
         val callbackList = mutableListOf<Pair<Business, String>>()
@@ -224,4 +218,8 @@ object FirebaseRepository {
             }
         }
     }
+
+
+
 }
+
