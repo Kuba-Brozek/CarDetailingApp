@@ -202,6 +202,13 @@ object FirebaseRepository {
         }
     }
 
+    fun asd(queryName: String){
+        getAllBusinesses {asd ->
+            val x = asd.map { it.second }.map { it.services }.flatten()
+            x.filter { it.name!!.contains(queryName) }
+        }
+    }
+
 
     fun getImageUriOfAllBusinesses(callback: (List<Pair<Business, String>>) -> Unit) {
         val callbackList = mutableListOf<Pair<Business, String>>()

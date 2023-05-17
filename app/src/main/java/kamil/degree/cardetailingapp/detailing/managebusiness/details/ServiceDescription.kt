@@ -37,7 +37,6 @@ class ServiceDescription(private val service: Service, private val index: Int) :
         binding.servicePriceServiceDescriptionET.setText( if (service.price == null) "" else service.price.toString() )
 
         binding.backIB.setOnClickListener {
-
             (activity as DrawerActivity).loadFragment(businessBucketFragment)
         }
 
