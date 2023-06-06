@@ -56,7 +56,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/search_with_filter_1_CV"
         android:layout_width="190sp"
-        android:layout_height="60sp"
+        android:layout_height="80sp"
         android:layout_marginStart="10sp"
         android:layout_marginTop="80sp"
         android:layout_marginEnd="10sp"
@@ -71,31 +71,22 @@
             android:id="@+id/one"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="5sp"
-            android:background="@color/red"
+            android:background="@drawable/one"
             android:paddingEnd="5sp">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="40sp"
-                android:layout_marginEnd="40sp"
-                android:gravity="center"
+                android:layout_height="60sp"
+                android:text="@string/filter_category_1"
+                android:textColor="@color/white"
+                android:gravity="end"
                 android:textSize="20sp"
-                android:hint="@string/filter_category_1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:layout_width="40sp"
-                android:layout_height="50sp"
-                android:backgroundTint="#00FFFFFF"
-                android:src="@drawable/baseline_search_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black" />
+                app:layout_constraintVertical_bias="0.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -105,7 +96,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/search_with_filter_2_CV"
         android:layout_width="190sp"
-        android:layout_height="60sp"
+        android:layout_height="80sp"
         android:layout_marginTop="80sp"
         android:layout_marginEnd="10sp"
         app:cardCornerRadius="10sp"
@@ -120,30 +111,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="5sp"
-            android:background="@color/purple_200"
+            android:background="@drawable/two"
             android:paddingEnd="5sp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="40sp"
-                android:layout_marginEnd="40sp"
-                android:gravity="center"
+                android:gravity="end|bottom"
+                android:text="@string/filter_category_2"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:hint="@string/filter_category_2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:layout_width="40sp"
-                android:layout_height="50sp"
-                android:backgroundTint="#00FFFFFF"
-                android:src="@drawable/baseline_search_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black" />
+                app:layout_constraintVertical_bias="1.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -153,9 +135,9 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/search_with_filter_3_CV"
         android:layout_width="190sp"
-        android:layout_height="60sp"
+        android:layout_height="80sp"
         android:layout_marginStart="10sp"
-        android:layout_marginTop="150sp"
+        android:layout_marginTop="180sp"
         android:layout_marginEnd="10sp"
         app:cardCornerRadius="10sp"
         app:cardElevation="10sp"
@@ -169,30 +151,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="5sp"
-            android:background="@color/light_blue_A200"
+            android:background="@drawable/three"
             android:paddingEnd="5sp">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40sp"
-                android:layout_marginEnd="40sp"
-                android:gravity="center"
+                android:layout_width="70sp"
+                android:layout_height="60sp"
+                android:gravity="start"
+                android:text="@string/filter_category_3"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:hint="@string/filter_category_3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:layout_width="40sp"
-                android:layout_height="50sp"
-                android:backgroundTint="#00FFFFFF"
-                android:src="@drawable/baseline_search_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black" />
+                app:layout_constraintVertical_bias="0.8" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -202,8 +176,8 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/search_with_filter_4_CV"
         android:layout_width="190sp"
-        android:layout_height="60sp"
-        android:layout_marginTop="150sp"
+        android:layout_height="80sp"
+        android:layout_marginTop="180sp"
         android:layout_marginEnd="10sp"
         app:cardCornerRadius="10sp"
         app:cardElevation="10sp"
@@ -217,7 +191,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="5sp"
-            android:background="@color/button_primary"
+            android:background="@drawable/four"
             android:paddingEnd="5sp">
 
             <TextView
@@ -226,21 +200,12 @@
                 android:layout_marginEnd="40sp"
                 android:gravity="center"
                 android:textSize="20sp"
-                android:hint="@string/filter_category_4"
+                android:textColor="@color/white"
+                android:text="@string/filter_category_4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:layout_width="40sp"
-                android:layout_height="50sp"
-                android:backgroundTint="#00FFFFFF"
-                android:src="@drawable/baseline_search_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/black" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -254,7 +219,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
-        android:layout_marginTop="220sp"
+        android:layout_marginTop="280sp"
         app:cardCornerRadius="10sp"
         app:cardElevation="10sp"
         android:layout_marginBottom="10sp"

@@ -19,6 +19,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import kamil.degree.cardetailingapp.databinding.FragmentBusinessImagesBinding
 import kamil.degree.cardetailingapp.detailing.managebusiness.BusinessViewModel
+import kamil.degree.cardetailingapp.detailing.adapters.BusinessDetailsImagesAdapter
 import kamil.degree.cardetailingapp.detailing.adapters.ImageAdapter
 import kamil.degree.cardetailingapp.extentions.Extentions.longToast
 import kamil.degree.cardetailingapp.extentions.Extentions.shortToast
@@ -40,7 +41,6 @@ class BusinessImagesFragment : Fragment() {
     private val imageUrls = mutableListOf<String>()
     private val imageAdapter = ImageAdapter(imageUrls)
     val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-
     val imageRef = Firebase.storage.reference
 
     override fun onCreateView(

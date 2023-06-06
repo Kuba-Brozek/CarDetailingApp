@@ -220,6 +220,17 @@ object FirebaseRepository {
     }
 
 
+    fun getBusinessId(business: Business, callback: (String) -> Unit) {
+        var filteredList = listOf<Pair<QueryDocumentSnapshot, Business>>()
+        getAllBusinesses {
+            filteredList = it.filter { b ->
+                b.second == business
+            }
+            callback(filteredList[0].first.id)
+        }
+    }
+
+
 
 }
 

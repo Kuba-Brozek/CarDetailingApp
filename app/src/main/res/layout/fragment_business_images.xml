@@ -7,6 +7,20 @@
         android:padding="16dp"
         tools:context=".detailing.managebusiness.details.BusinessImagesFragment">
 
+
+    <ImageButton
+        android:id="@+id/btnUploadImage"
+        android:layout_width="190sp"
+        android:layout_height="40sp"
+        android:backgroundTint="@color/button_primary"
+        android:src="@drawable/baseline_done_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.837"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.092" />
+
     <ImageView
         android:id="@+id/ivImage"
         android:layout_width="135sp"
@@ -30,29 +44,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.005" />
 
-    <ImageButton
-        android:id="@+id/btnUploadImage"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:src="@drawable/baseline_done_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.88"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.113" />
 
-    <ImageButton
-        android:id="@+id/btnDeleteImage"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:src="@drawable/baseline_delete_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.118" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvImages"
@@ -60,7 +53,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="200sp"
         tools:listitem="@layout/item_image"
-        tools:itemCount="5"
-            />
+        tools:itemCount="20" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

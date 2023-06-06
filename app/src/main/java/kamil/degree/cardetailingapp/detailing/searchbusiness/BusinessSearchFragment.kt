@@ -13,8 +13,12 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.ktx.toObject
+import kamil.degree.cardetailingapp.R
 import kamil.degree.cardetailingapp.databinding.FragmentBusinessSearchBinding
+import kamil.degree.cardetailingapp.detailing.DrawerActivity
 import kamil.degree.cardetailingapp.detailing.adapters.BusinessSearchAdapter
+import kamil.degree.cardetailingapp.detailing.managebusiness.details.BusinessDetailsFragment
 import kamil.degree.cardetailingapp.extentions.Extentions.shortToast
 import kamil.degree.cardetailingapp.model.Business
 import kotlinx.coroutines.launch
@@ -30,6 +34,7 @@ class BusinessSearchFragment : Fragment() {
     private lateinit var adapter: BusinessSearchAdapter
     private val predicateList = listOf("myju myju", "Predicate 2", "Predicate 3", "Predicate 4")
     private var clickedFlagList = mutableListOf(false, false, false, false)
+    private var businessList2 = listOf<Business>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,11 +50,13 @@ class BusinessSearchFragment : Fragment() {
         binding.businessSearchContainer.adapter = adapter
         adapter.setOnItemClickListener(object : BusinessSearchAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
-                shortToast("asdasdasd ${businessList[position]}")
+                viewModel.getBusinessId(businessList[position].first) {
+                    (activity as DrawerActivity).loadFragment(BusinessDetailsFragment(it, businessList[position].first))
+                }
             }
         })
 
-        viewModel.getBusinesses2 {
+        viewModel.getBusinesses {
             lifecycleScope.launch {
                 businessList = it
                 adapter.businessList = it
@@ -79,7 +86,7 @@ class BusinessSearchFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 if(s.toString().isNotEmpty()) {
-                    filterBusinessListAndUpdateAdapterAccordingly(s.toString())
+                    updateAdapterWithFilter(s.toString())
                     clickedFlagList = clickedFlagList.map { false }.toMutableList()
                 } else {
                     restoreUnfilteredAdapter()
@@ -91,14 +98,8 @@ class BusinessSearchFragment : Fragment() {
     }
 
 
-    private fun filterBusinessListAndUpdateAdapterAccordingly(predicate: String) {
-
-        val filteredList = businessList.filter {
-                pair -> pair.first.services
-            .map { it.name }.any { string -> string?.contains(predicate) ?: false }
-        }
-        Log.d("", filteredList.size.toString())
-        Log.d("", businessList.size.toString())
+    private fun updateAdapterWithFilter(predicate: String) {
+        val filteredList = viewModel.filterBusinessList(businessList, predicate)
         adapter.businessList = filteredList
         adapter.notifyDataSetChanged()
     }
@@ -117,7 +118,7 @@ class BusinessSearchFragment : Fragment() {
             consLayout.background.alpha = 100
             clickedFlagList = clickedFlagList.map { false }.toMutableList()
             clickedFlagList[predicate] = true
-            filterBusinessListAndUpdateAdapterAccordingly(predicateList[predicate])
+            updateAdapterWithFilter(predicateList[predicate])
         }
     }
 

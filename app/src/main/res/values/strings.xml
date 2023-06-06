@@ -24,10 +24,11 @@
     <string name="service_price">service price</string>
     <string name="price">price</string>
     <string name="search_service">Search service you look for!</string>
-    <string name="filter_category_1">Filter cat. 1</string>
-    <string name="filter_category_2">Filter cat. 2</string>
-    <string name="filter_category_3">Filter cat. 3</string>
-    <string name="filter_category_4">Filter cat. 4</string>
+    <string name="filter_category_1">Czyszczenie całkowite</string>
+    <string name="filter_category_2">Woskowanie</string>
+    <string name="filter_category_3">Korekta lakieru</string>
+    <string name="filter_category_4">Mycie</string>
+
 
 
 </resources>
