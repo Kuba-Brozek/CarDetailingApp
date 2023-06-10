@@ -72,7 +72,6 @@ class AddBusinessFragment : Fragment() {
             binding.addBusinessNameET.setText(it.name)
             binding.addBusinessAddressET.setText(it.address)
             binding.addBusinessDescriptionET.setText(it.description)
-            Log.d("TAAAAAAAAAAAG", it.services.toString())
             binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
             adapter = ServicesOverviewAdapter(it.services.toMutableList())
             binding.recyclerview.adapter = adapter

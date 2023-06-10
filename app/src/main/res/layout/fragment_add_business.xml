@@ -48,7 +48,7 @@
             android:id="@+id/add_business_address_ET"
             android:layout_width="match_parent"
             android:layout_height="60sp"
-            android:hint="business address"
+            android:hint="Address format: 'City, street, nr, lat: xx, long: xx'"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

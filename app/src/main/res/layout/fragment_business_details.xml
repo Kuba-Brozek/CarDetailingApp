@@ -9,11 +9,15 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-63dp">
+        tools:layout_editor_absoluteX="0sp"
+        tools:layout_editor_absoluteY="-63sp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:paddingEnd="20sp"
+            android:paddingStart="20sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
             android:layout_height="wrap_content">
 
 
@@ -22,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10sp"
                 app:cardCornerRadius="6sp"
-                app:cardElevation="10dp"
+                app:cardElevation="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60sp"
                 app:cardCornerRadius="6sp"
-                app:cardElevation="10dp"
+                app:cardElevation="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +83,7 @@
                 android:layout_marginStart="10sp"
                 android:layout_marginTop="110sp"
                 android:layout_marginEnd="10sp"
-                app:cardElevation="10dp"
+                app:cardElevation="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -112,14 +116,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="20"
-                tools:listitem="@layout/item_image" />
+                tools:listitem="@layout/service_overview" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/businessImagesAdapter"
                 android:layout_width="match_parent"
                 android:layout_height="500sp"
-                android:layout_marginTop="480sp"
+                android:layout_marginTop="484dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="20"
@@ -129,5 +134,29 @@
 
 
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/call_FAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15sp"
+        android:layout_marginEnd="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/baseline_call_24"
+        android:tint="@color/white"/>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/email_FAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15sp"
+        android:layout_marginEnd="100sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/baseline_email_24"
+        android:tint="@color/white"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

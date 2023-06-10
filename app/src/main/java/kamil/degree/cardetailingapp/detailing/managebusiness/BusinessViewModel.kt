@@ -30,4 +30,13 @@ class BusinessViewModel : ViewModel() {
         return firebaseRepo.saveService(business)
     }
 
+
+
+    fun getUserById(uid: String, callback: (User) -> Unit) {
+       return firebaseRepo.getUserById(uid, callback)
+    }
+
+
+
+
 }

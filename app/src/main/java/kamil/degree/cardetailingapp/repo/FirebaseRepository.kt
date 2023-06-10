@@ -14,11 +14,6 @@ import kamil.degree.cardetailingapp.model.User
 import kamil.degree.cardetailingapp.utils.Const
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -221,7 +216,8 @@ object FirebaseRepository {
 
 
     fun getBusinessId(business: Business, callback: (String) -> Unit) {
-        var filteredList = listOf<Pair<QueryDocumentSnapshot, Business>>()
+        var filteredList =
+            listOf<Pair<QueryDocumentSnapshot, Business>>()
         getAllBusinesses {
             filteredList = it.filter { b ->
                 b.second == business
@@ -230,7 +226,29 @@ object FirebaseRepository {
         }
     }
 
+    fun setPhoneNumber(phoneNumber: String) {
+        cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.PHONE_NUMBER).set(
+            hashMapOf(
+                "phoneNumber" to phoneNumber
+            )
+        ).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Log.i(Const.PHONE_INFO,"Number added succesfully")
+            } else {
+                Log.w(Const.PHONE_INFO, "Error adding number, ${it.exception?.printStackTrace()}")
+            }
+        }
+    }
 
+    fun getUserById(uid: String, callback: (User) -> Unit) {
+        cloud.collection(uid).document(Const.USER_DETAILS).get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = task.result!!.toObject<User>()!!
+                    callback(user)
+                }
+            }
+    }
 
 }
 
