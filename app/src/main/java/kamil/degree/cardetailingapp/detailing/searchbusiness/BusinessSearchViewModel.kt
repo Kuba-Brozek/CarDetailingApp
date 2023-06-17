@@ -25,9 +25,8 @@ class BusinessSearchViewModel: ViewModel() {
     fun filterBusinessList(businessList: List<Pair<Business, String>>, predicate: String): List<Pair<Business, String>> {
         return businessList.filter {
                 pair -> pair.first.services
-            .map { it.name }.any { string -> string?.contains(predicate) ?: false }
+            .map { it.name }.any { string -> string?.lowercase()?.contains(predicate.lowercase()) ?: false }
         }
     }
-
 
 }

@@ -2,6 +2,7 @@ package kamil.degree.cardetailingapp.detailing.managebusiness
 
 import androidx.lifecycle.ViewModel
 import kamil.degree.cardetailingapp.model.Business
+import kamil.degree.cardetailingapp.model.PhoneNumber
 import kamil.degree.cardetailingapp.model.User
 import kamil.degree.cardetailingapp.repo.FirebaseRepository
 
@@ -36,7 +37,9 @@ class BusinessViewModel : ViewModel() {
        return firebaseRepo.getUserById(uid, callback)
     }
 
-
+    fun getPhoneNumber(uid: String, callback: (PhoneNumber) -> Unit) {
+        return firebaseRepo.getPhoneNumber(uid, callback)
+    }
 
 
 }

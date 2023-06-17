@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home"
-        android:icon="@drawable/ic_menu_gallery"
-        android:title="Home"  />
+        android:icon="@drawable/baseline_attach_money_24"
+        android:title="BUSINESS"  />
     <item
         android:id="@+id/message"
-        android:icon="@drawable/ic_menu_gallery"
-        android:title="Message" />
+        android:icon="@drawable/baseline_search_24"
+        android:title="SEARCH" />
     <item
         android:id="@+id/settings"
-        android:icon="@drawable/ic_menu_gallery"
-        android:title="Settings" />
+        android:icon="@drawable/baseline_settings_24"
+        android:title="SETTINGS" />
 </menu>

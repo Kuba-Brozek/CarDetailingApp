@@ -38,6 +38,9 @@ class BusinessServiceOverviewAdapter (var serviceList: MutableList<Service>)
     }
 
 
+    //TODO("OnClick show service description")
+
+
 }
 
 

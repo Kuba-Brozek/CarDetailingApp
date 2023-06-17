@@ -24,7 +24,7 @@ class DrawerActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        loadFragment(businessBucketFragment)
+        loadFragment(businessSearchFragment)
 
         binding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {

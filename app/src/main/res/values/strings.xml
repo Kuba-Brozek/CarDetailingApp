@@ -15,7 +15,6 @@
     <string name="create_account">create account</string>
     <string name="sign_in">sign in</string>
     <string name="or">or</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -28,7 +27,6 @@
     <string name="filter_category_2">Woskowanie</string>
     <string name="filter_category_3">Korekta lakieru</string>
     <string name="filter_category_4">Mycie</string>
-
 
 
 </resources>

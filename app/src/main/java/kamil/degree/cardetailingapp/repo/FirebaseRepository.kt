@@ -9,6 +9,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kamil.degree.cardetailingapp.model.Business
+import kamil.degree.cardetailingapp.model.PhoneNumber
 import kamil.degree.cardetailingapp.model.Service
 import kamil.degree.cardetailingapp.model.User
 import kamil.degree.cardetailingapp.utils.Const
@@ -17,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import kotlin.system.exitProcess
 
 object FirebaseRepository {
 
@@ -103,20 +105,8 @@ object FirebaseRepository {
 
     fun addBusiness(callback: (Business) -> Unit) {
         val business = Business()
-        val service = Service("myju myju", 199)
+        val service = Service("Empty service", 999)
         business.services = mutableListOf(
-            service,
-            service,
-            service,
-            service,
-            service,
-            service,
-            service,
-            service,
-            service,
-            service,
-            service,
-            service,
             service
         )
         val businessHashMap = hashMapOf(
@@ -226,20 +216,6 @@ object FirebaseRepository {
         }
     }
 
-    fun setPhoneNumber(phoneNumber: String) {
-        cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.PHONE_NUMBER).set(
-            hashMapOf(
-                "phoneNumber" to phoneNumber
-            )
-        ).addOnCompleteListener {
-            if (it.isSuccessful) {
-                Log.i(Const.PHONE_INFO,"Number added succesfully")
-            } else {
-                Log.w(Const.PHONE_INFO, "Error adding number, ${it.exception?.printStackTrace()}")
-            }
-        }
-    }
-
     fun getUserById(uid: String, callback: (User) -> Unit) {
         cloud.collection(uid).document(Const.USER_DETAILS).get()
             .addOnCompleteListener { task ->
@@ -249,6 +225,74 @@ object FirebaseRepository {
                 }
             }
     }
+
+    fun deleteAccount(callback: (Boolean) -> Unit) {
+        firebaseAuth.currentUser!!.delete().addOnCompleteListener {
+            if (it.isSuccessful) {
+                deleteBusiness()
+                deleteUserDetails()
+                Log.i("Account", "Account deleted succesfully")
+                callback(true)
+            } else {
+                Log.w("Account", "Account not deleted ${it.exception?.message}")
+                callback(false)
+            }
+        }
+    }
+
+    fun deleteBusiness() {
+        cloud.collection(Const.BUSINESS_INFO).document(firebaseAuth.currentUser!!.uid).delete()
+    }
+
+    fun deleteUserDetails() {
+        cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.USER_DETAILS).delete()
+    }
+
+    fun logOut() {
+        firebaseAuth.signOut()
+        android.os.Process.killProcess(android.os.Process.myPid())
+    }
+
+    fun setPhoneNumber(phoneNumber: String) {
+        cloud.collection(firebaseAuth.currentUser!!.uid).document(Const.PHONE_NUMBER).set(
+            hashMapOf(
+                "phoneNumber" to phoneNumber
+            )
+        ).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Log.i(Const.PHONE_INFO,"Number added succesfully")
+            } else {
+                Log.w(Const.PHONE_INFO, "Error adding number, ${it.exception?.message}")
+            }
+        }
+    }
+
+    fun getPhoneNumber(uid: String, callback: (PhoneNumber) -> Unit) {
+        cloud.collection(uid).document("PhoneNumber").get()
+            .addOnCompleteListener {
+                if(it.isSuccessful) {
+                    callback(it.result.toObject<PhoneNumber>()!!)
+                } else {
+                    Log.w("PhoneNumber", it.exception?.message?: "Exception with no message")
+                }
+            }
+    }
+
+    fun changeEmail(email: String) {
+        firebaseAuth.currentUser!!.updateEmail(email)
+        getUserData {
+            val user = it
+            user.email = email
+            updateUserData(user)
+        }
+    }
+
+    fun changePassword(password: String) {
+        firebaseAuth.currentUser!!.updatePassword(password)
+    }
+
+
+
 
 }
 

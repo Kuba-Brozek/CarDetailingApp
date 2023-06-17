@@ -78,8 +78,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="100sp"
                 android:layout_marginStart="10sp"
                 android:layout_marginTop="110sp"
                 android:layout_marginEnd="10sp"
@@ -90,8 +90,8 @@
 
                 <TextView
                     android:id="@+id/business_description_TV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="100sp"
                     android:gravity="center"
                     android:paddingStart="10sp"
                     android:paddingEnd="10sp"
@@ -111,7 +111,7 @@
                 android:id="@+id/services_adapter"
                 android:layout_width="match_parent"
                 android:layout_height="300sp"
-                android:layout_marginTop="180sp"
+                android:layout_marginTop="250sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -122,7 +122,7 @@
                 android:id="@+id/businessImagesAdapter"
                 android:layout_width="match_parent"
                 android:layout_height="500sp"
-                android:layout_marginTop="484dp"
+                android:layout_marginTop="580sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"

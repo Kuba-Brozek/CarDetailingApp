@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,7 +33,7 @@ class BusinessSearchFragment : Fragment() {
     private lateinit var viewModel: BusinessSearchViewModel
     private var businessList = listOf<Pair<Business, String>>()
     private lateinit var adapter: BusinessSearchAdapter
-    private val predicateList = listOf("myju myju", "Predicate 2", "Predicate 3", "Predicate 4")
+    private val predicateList = listOf("Czyszczenie całkowite", "Woskowanie", "Korekta lakieru", "Mycie")
     private var clickedFlagList = mutableListOf(false, false, false, false)
     private var businessList2 = listOf<Business>()
 
@@ -64,6 +65,7 @@ class BusinessSearchFragment : Fragment() {
             }
         }
 
+
         binding.searchWithFilter1CV.setOnClickListener {
             filterButtonOnClick(0, binding.one)
         }
@@ -93,7 +95,6 @@ class BusinessSearchFragment : Fragment() {
                 }
             }
         })
-
         return view
     }
 

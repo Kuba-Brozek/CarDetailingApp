@@ -64,7 +64,9 @@ class BusinessDetailsFragment(private val uid: String, business: Business) : Fra
         }
 
         binding.callFAB.setOnClickListener {
-            callBusinessesOwnerNumber("795509599")
+            viewModel.getPhoneNumber(uid) {number ->
+                callBusinessesOwnerNumber(number.phoneNumber?: "756121889")
+            }
         }
 
         return view

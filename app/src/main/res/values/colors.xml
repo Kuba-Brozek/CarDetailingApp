@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="purple_200">#FFBB86FC</color>
-    <color name="button_primary">#5E4300</color>
+    <color name="button_primary">#19A0E3</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="button_secondary">#3C3C3C</color>
     <color name="teal_700">#FF018786</color>
