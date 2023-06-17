@@ -21,8 +21,11 @@
         tools:ignore="DataExtractionRules"
         tools:targetApi="31">
         <activity
+            android:name=".detailing.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".detailing.SplashScreenActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,9 +35,7 @@
         <activity
             android:name=".main.SignActivity"
             android:exported="false"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".detailing.DrawerActivity"
             android:exported="false"

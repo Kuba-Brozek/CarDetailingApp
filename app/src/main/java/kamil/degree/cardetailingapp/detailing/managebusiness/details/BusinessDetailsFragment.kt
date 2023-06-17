@@ -52,6 +52,12 @@ class BusinessDetailsFragment(private val uid: String, business: Business) : Fra
         val view = binding.root
         binding.servicesAdapter.layoutManager = LinearLayoutManager(requireContext())
         binding.servicesAdapter.adapter = serviceAdapter
+        serviceAdapter.setOnItemClickListener(object: BusinessServiceOverviewAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                longToast(serviceAdapter.serviceList[position].description?: "No service description")
+            }
+
+        })
         listFiles()
         binding.businessNameTV.text = businessDetails.name
         binding.businessAddressTV.text = businessDetails.address

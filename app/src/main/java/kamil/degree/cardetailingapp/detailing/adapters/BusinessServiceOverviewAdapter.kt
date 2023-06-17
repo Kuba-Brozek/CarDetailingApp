@@ -12,13 +12,20 @@ import kamil.degree.cardetailingapp.model.Service
 class BusinessServiceOverviewAdapter (var serviceList: MutableList<Service>)
     : RecyclerView.Adapter<BusinessServiceOverviewAdapter.BusinessServiceOverviewViewHolder>() {
 
+    private lateinit var mListener: OnItemClickListener
+    interface OnItemClickListener{
+        fun onItemClick(position: Int)
+    }
 
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        mListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusinessServiceOverviewViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.service_overview, parent, false)
 
-        return BusinessServiceOverviewViewHolder(view)
+        return BusinessServiceOverviewViewHolder(view, mListener)
     }
 
     override fun onBindViewHolder(holder: BusinessServiceOverviewViewHolder, position: Int) {
@@ -31,15 +38,15 @@ class BusinessServiceOverviewAdapter (var serviceList: MutableList<Service>)
         return serviceList.size
     }
 
-    inner class BusinessServiceOverviewViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class BusinessServiceOverviewViewHolder(view: View, listener: OnItemClickListener) : RecyclerView.ViewHolder(view) {
         val serviceName: TextView = itemView.findViewById(R.id.serviceName)
         val servicePrice: TextView = itemView.findViewById(R.id.servicePrice)
-
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(absoluteAdapterPosition)
+            }
+        }
     }
-
-
-    //TODO("OnClick show service description")
-
 
 }
 

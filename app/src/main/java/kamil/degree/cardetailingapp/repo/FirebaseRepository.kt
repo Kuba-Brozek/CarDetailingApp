@@ -291,6 +291,15 @@ object FirebaseRepository {
         firebaseAuth.currentUser!!.updatePassword(password)
     }
 
+    fun sendEmail(email: String) {
+        firebaseAuth.sendPasswordResetEmail(email)
+            .addOnSuccessListener {
+                Log.i("RESET" ,"Password reset email sent to the user.")
+            }.addOnFailureListener {
+                Log.i("RESET", "Password reset email not delivered to the user.")
+            }
+    }
+
 
 
 

@@ -12,6 +12,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kamil.degree.cardetailingapp.databinding.ActivityLoginBinding
 import kamil.degree.cardetailingapp.detailing.DrawerActivity
+import kamil.degree.cardetailingapp.detailing.ForgotPasswordActivity
 import kamil.degree.cardetailingapp.extentions.Extentions.shortToast
 import kamil.degree.cardetailingapp.extentions.Extentions.useText
 
@@ -33,6 +34,11 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
+        binding.forgotPasswordTV.setOnClickListener {
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+        }
 
         binding.signInBTN.setOnClickListener {
             signIn(
